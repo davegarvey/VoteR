@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title></title>
+    <link href="css/style.css" rel="stylesheet">
     <style type="text/css">
         .option
         {
@@ -20,37 +21,52 @@
         
         <% if (IsAdmin)
            { %>
-            <fieldset>
-                <legend>admin</legend>
+           <h2>Poll detail</h2>
+            <fieldset>                
                 <label for="adminTitle">title</label><input id="adminTitle" type="text" />
-                <label for="newVotingOption">new voting option</label><input id="newVotingOption" type="text" /><button id="submitNewVotingOption">submit</button>
+                <label for="newVotingOption">new voting option</label><input id="newVotingOption" type="text" /><button class="button button-1" id="submitNewVotingOption">submit<span></span></button>
             </fieldset>
-               
-            <fieldset>
-                <legend>poll state</legend>
-                <button id="openPoll" value="open">open</button>
-                <button id="closePoll" value="close">close</button>
-                <button id="resetPoll" value="reset">reset</button>
+            
+            <h2>Poll state</h2>
+            <fieldset>                
+                <button id="openPoll" class="button button-1" value="open">open</button>
+                <button id="closePoll" class="button button-3" value="close">close</button>
+                <button id="resetPoll" class="button button-4" value="reset">reset</button>
             </fieldset>
         <% } %>
         <h1 id="title"></h1>
 
-        <label>Poll State</label>
-        <input type="text" disabled="disabled" id="pollState" />
+        <p class="heading">Poll is <span id="pollState"></span></p>
          
-        <div id="pollChart"></div>
+        <div id="pollChart">
+            <div id="container">
+                <!--
+                
+                <div id="result1"><div class="count" style="bottom:75%;">3</div><div class="bar" style="height:75%;"></div></div>
+                <div id="result2"><div class="count" style="bottom:25%;">1</div><div class="bar" style="height:25%;"></div></div>
+        
+                -->
+            </div>
+        </div>
     
+        <h2>Cast your vote</h2>
         <fieldset id="votingOptions">
-            <legend>cast your vote</legend>
-            <div id="votingButtons"></div>
+            <div id="votingButtons">
+                <!--
+                
+                <li class="first"><button class="button button-1">Poll 1<span></span></button></li>
+                <li><button class="button button-2">Poll 2<span></span></button></li>
+                
+                -->
+            </div>
         </fieldset>
 
     </form>
     
-    <script src="/Scripts/jquery-1.7.2.js" type="text/javascript"></script>
-    <script src="/Scripts/jquery-ui-1.8.19.js" type="text/javascript"></script>
-    <script src="/Scripts/jquery.signalR-0.5.0.js" type="text/javascript"></script>
+    <script src="/assets/js/libs/jquery-1.7.2.js" type="text/javascript"></script>
+    <script src="/assets/js/libs/jquery-ui-1.8.19.js" type="text/javascript"></script>
+    <script src="/assets/js/libs/jquery.signalR-0.5.0.js" type="text/javascript"></script>
     <script src="/signalr/hubs" type="text/javascript"></script>    
-    <script src="VoteR.js" type="text/javascript"></script>
+    <script src="/assets/js/VoteR.js" type="text/javascript"></script>
 </body>
 </html>
