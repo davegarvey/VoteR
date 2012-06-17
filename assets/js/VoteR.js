@@ -9,7 +9,7 @@ $(function () {
         $title = $("#title"),
         $pollState = $("#pollState"),
         $votingOptions = $("#votingOptions"),
-        $pollChart = $("#pollChart"),
+        $pollChart = $("#pollChart #container"),
         $newVotingOption = $("#newVotingOption"),
         $votingButtons = $("#votingButtons");
 
@@ -18,14 +18,14 @@ $(function () {
             $title.text(title);
         },
         pollOpened: function () {
-            $pollState.val("Open");
+            $pollState.text("Open");
             $votingOptions.show();
             $("#openPoll").prop("disabled", true);
             $("#closePoll").prop("disabled", false);
             $("#resetPoll").prop("disabled", true);
         },
         pollClosed: function () {
-            $pollState.val("Closed");
+            $pollState.text("Closed");
             $votingOptions.hide();
             $("#openPoll").prop("disabled", false);
             $("#closePoll").prop("disabled", true);
@@ -49,17 +49,39 @@ $(function () {
     function updateChart() {
         return votingHub.getVotingOptions()
             .done(function (votingOptions) {
-                // add charts
+                var votes,
+                    total,
+                    height1,
+                    height2;
+                    
+                // add titles
                 $pollChart.empty();
                 $pollChart.append("<ul>");
-                $.each(votingOptions, function () {
-                    $pollChart.append("<li>" + this.Name + " - " + this.Votes + "</li>");
+                $.each(votingOptions, function (idx) {
+                    var btnClass = (idx === 0) ? " class='first'" : "";
+                    $pollChart.append("<li" + btnClass + ">" + this.Name + "</li>");
                 });
+                
+                //calculate the chart values
+                votes = this.Votes;
+                total = votes[0] + votes[1];
+                height1 = ((votes[0] / total) * 100);
+                height2 = ((votes[1] / total) * 100);
+                
+                // add charts
+                $pollChart.append("<div id='pollChart'>" +
+                                    "<div id='container'>" +
+                                        "<div id='result1'><div class='count' style='height:" + height1 + "%'></div><div class='bar' style='height:" + height1 + "%'></div></div>" +
+                                        "<div id='result2'><div class='count' style='height:" + height1 + "%'></div><div class='bar' style='height:" + height2 + "%'></div></div>" +
+                                    "</div>" +
+                                "</div>");
+                
                 // add vote buttons
                 $votingButtons.empty();
                 $votingButtons.append("<ul>");
-                $.each(votingOptions, function () {
-                    $votingButtons.append("<li><button class='votingButton'>" + this.Name + "</button></li>");
+                $.each(votingOptions, function (idx) {
+                    var btnClass = (idx === 0) ? " class='first'" : "";
+                    $votingButtons.append("<li " + btnClass + "><button class='button button-1'>" + this.Name + "<span></span></button></li>");
                 });
 
                 $(".votingButton").click(function () {
