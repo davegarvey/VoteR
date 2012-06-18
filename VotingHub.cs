@@ -40,17 +40,22 @@ namespace VoteR
 
         public void OpenPoll()
         {
-            _poll.OpenPoll();
+            _poll.Open();
         }
 
         public void ClosePoll()
         {
-            _poll.ClosePoll();
+            _poll.Close();
         }
 
         public void ResetPoll()
         {
-            _poll.ResetPoll();
+            _poll.Reset();
+        }
+
+        public void ExportPoll()
+        {
+            _poll.Export();
         }
 
         /// <summary>

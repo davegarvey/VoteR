@@ -116,6 +116,11 @@ $(function () {
             return false;
         });
 
+        $("#exportPoll").click(function () {
+            votingHub.exportPoll();
+            return false;
+        });
+
         $("#submitNewVotingOption").click(function () {
             votingHub.addVotingOption($newVotingOption.val());
             return false;

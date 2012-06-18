@@ -1,12 +1,11 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Collections.Concurrent;
-using SignalR.Hubs;
-using SignalR.Hosting.AspNet;
-using SignalR.Infrastructure;
 using SignalR;
+using System.Xml.Serialization;
+using System.Text;
+using System.IO;
 
 namespace VoteR
 {
@@ -104,7 +103,7 @@ namespace VoteR
         /// <summary>
         /// Opens the poll.
         /// </summary>
-        public void OpenPoll()
+        public void Open()
         {
             if (PollState != VoteR.PollState.Open || PollState != VoteR.PollState.Opening)
             {
@@ -122,7 +121,7 @@ namespace VoteR
         /// <summary>
         /// Closes the poll.
         /// </summary>
-        public void ClosePoll()
+        public void Close()
         {
             if (PollState == VoteR.PollState.Open || PollState == VoteR.PollState.Opening)
             {
@@ -140,7 +139,7 @@ namespace VoteR
         /// <summary>
         /// Resets the poll.
         /// </summary>
-        public void ResetPoll()
+        public void Reset()
         {
             lock (_pollStateLock)
             {
@@ -152,6 +151,53 @@ namespace VoteR
                 _votingOptions.Clear();
                 BroadcastPollStateChange(VoteR.PollState.Reset);
             }
+        }
+
+        public void Export()
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(Poll));
+            StringBuilder sb = new StringBuilder();
+            using (StringWriter writer = new StringWriter(sb))
+            {
+                serializer.Serialize(writer, this);
+            }
+
+            HtmlAgilityPack.HtmlDocument htmlDoc = new HtmlAgilityPack.HtmlDocument();
+
+            htmlDoc.LoadHtml(sb.ToString());
+
+
+
+            //// ParseErrors is an ArrayList containing any errors from the Load statement
+            //if (htmlDoc.ParseErrors != null && htmlDoc.ParseErrors.Count() > 0)
+            //{
+            //    // Handle any parse errors as required
+            //}
+            //else
+            //{
+            //    if (htmlDoc.DocumentNode != null)
+            //    {
+            //        HtmlAgilityPack.HtmlNode containerNode = htmlDoc.DocumentNode.SelectSingleNode("//container");
+
+            //        if (containerNode != null)
+            //        {
+            //            StringBuilder resultsHtml = new StringBuilder();
+            //            List<VotingOption> votingOptions = this.GetVotingOptions().ToList();
+
+            //            resultsHtml.AppendLine("<ul>");
+
+            //            foreach (var item in votingOptions)
+            //            {
+            //                resultsHtml.AppendLine(string.Concat("<li>", item.Name, "</li>"));
+            //            }
+
+            //            foreach (var item in votingOptions)
+            //            {
+            //                resultsHtml.AppendLine(string.Concat("<li>", item.Name, "</li>"));
+            //            }
+            //        }
+            //    }
+            //}
         }
 
         /// <summary>

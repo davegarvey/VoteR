@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head id="Head1" runat="server">
     <title></title>
     <link href="assets/css/style.css" rel="stylesheet">
@@ -32,6 +32,11 @@
                 <button id="openPoll" class="button button-1" value="open">open</button>
                 <button id="closePoll" class="button button-3" value="close">close</button>
                 <button id="resetPoll" class="button button-4" value="reset">reset</button>
+            </fieldset>
+
+            <h2>Export</h2>
+            <fieldset class="admin admin-export">
+                <button id="exportPoll" class="button button-1" value="export">export</button>
             </fieldset>
         <% } %>
         <h1 id="title"></h1>
