@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title></title>
-    <link href="css/style.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
     <style type="text/css">
         .option
         {
@@ -22,13 +22,13 @@
         <% if (IsAdmin)
            { %>
            <h2>Poll detail</h2>
-            <fieldset>                
+            <fieldset class="admin admin-title">                
                 <label for="adminTitle">title</label><input id="adminTitle" type="text" />
                 <label for="newVotingOption">new voting option</label><input id="newVotingOption" type="text" /><button class="button button-1" id="submitNewVotingOption">submit<span></span></button>
             </fieldset>
             
             <h2>Poll state</h2>
-            <fieldset>                
+            <fieldset class="admin admin-status">                
                 <button id="openPoll" class="button button-1" value="open">open</button>
                 <button id="closePoll" class="button button-3" value="close">close</button>
                 <button id="resetPoll" class="button button-4" value="reset">reset</button>
@@ -38,14 +38,16 @@
 
         <p class="heading">Poll is <span id="pollState"></span></p>
          
-        <div id="pollChart">
-            <div id="container">
-                <!--
+        <div id="results">
+            <div id="pollChart">
+                <div id="container">
+                    <!--
                 
-                <div id="result1"><div class="count" style="bottom:75%;">3</div><div class="bar" style="height:75%;"></div></div>
-                <div id="result2"><div class="count" style="bottom:25%;">1</div><div class="bar" style="height:25%;"></div></div>
+                    <div id="result1"><div class="count" style="bottom:75%;">3</div><div class="bar" style="height:75%;"></div></div>
+                    <div id="result2"><div class="count" style="bottom:25%;">1</div><div class="bar" style="height:25%;"></div></div>
         
-                -->
+                    -->
+                </div>
             </div>
         </div>
     

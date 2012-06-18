@@ -53,7 +53,7 @@ $(function () {
                     total,
                     height1,
                     height2;
-                    
+
                 // add titles
                 $pollChart.empty();
                 $pollChart.append("<ul>");
@@ -61,27 +61,31 @@ $(function () {
                     var btnClass = (idx === 0) ? " class='first'" : "";
                     $pollChart.append("<li" + btnClass + ">" + this.Name + "</li>");
                 });
-                
+
                 //calculate the chart values
-                votes = this.Votes;
+                votes = [votingOptions[0].Votes, votingOptions[1].Votes];
                 total = votes[0] + votes[1];
-                height1 = ((votes[0] / total) * 100);
-                height2 = ((votes[1] / total) * 100);
-                
+                if (votes[0] > 0) {
+                    height1 = ((votes[0] / total) * 100);
+                } else {
+                    height1 = 0;
+                }
+                if (votes[1] > 0) {
+                    height2 = ((votes[1] / total) * 100);
+                } else {
+                    height2 = 0;
+                }
+
                 // add charts
-                $pollChart.append("<div id='pollChart'>" +
-                                    "<div id='container'>" +
-                                        "<div id='result1'><div class='count' style='height:" + height1 + "%'></div><div class='bar' style='height:" + height1 + "%'></div></div>" +
-                                        "<div id='result2'><div class='count' style='height:" + height1 + "%'></div><div class='bar' style='height:" + height2 + "%'></div></div>" +
-                                    "</div>" +
-                                "</div>");
-                
+                $pollChart.append("<div id='result1'><div class='count' style='bottom:" + height1 + "%'>" + votes[0] + "</div><div class='bar' style='height:" + height1 + "%'></div></div>" +
+                                  "<div id='result2'><div class='count' style='bottom:" + height2 + "%'>" + votes[1] + "</div><div class='bar' style='height:" + height2 + "%'></div></div>");
+
                 // add vote buttons
                 $votingButtons.empty();
                 $votingButtons.append("<ul>");
                 $.each(votingOptions, function (idx) {
                     var btnClass = (idx === 0) ? " class='first'" : "";
-                    $votingButtons.append("<li " + btnClass + "><button class='button button-1'>" + this.Name + "<span></span></button></li>");
+                    $votingButtons.append("<li " + btnClass + "><button class='votingButton button button-" + (idx + 1) + "'>" + this.Name + "<span></span></button></li>");
                 });
 
                 $(".votingButton").click(function () {
