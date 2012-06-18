@@ -105,20 +105,17 @@ fieldset.admin-status button {
   font-size:3em;
   color:#333;
 }
-#results #result1 {
+#results .result1 {
   left:0%;  
 }
-#results #result1 .bar {
+#results .result1 .bar {
   background-color:#FF4C00;
   border:1px solid #CE3A00;
   background-image:-webkit-linear-gradient(#FF4C00 0%, #FF4C00 80%, #FFBB96 100%);
   background-image:-moz-linear-gradient(#FF4C00 0%, #FF4C00 80%, #FFBB96 100%);
   background-image:linear-gradient(#FF4C00 0%, #FF4C00 80%, #FFBB96 100%);
 }
-#results #result2 {
-  left:55%;
-}
-#results #result2 .bar {
+#results .result2 .bar {
   background-color:#FF4C00;
   border:1px solid #00AD34;
   background-image:-webkit-linear-gradient(#00DD42 0%, #00DD42 80%, #B8FCCC  100%);
