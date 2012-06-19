@@ -297,7 +297,12 @@ namespace VoteR
         /// <param name="cid">Connection id of the user.</param>
         private void AddUserVote(string name, string cid)
         {
-            _votingOptions.SingleOrDefault(v => v.Value.Name == name).Value.AddVoter(cid);
+            var votingOption = _votingOptions.SingleOrDefault(v => v.Value.Name == name);
+
+            if (votingOption.Value != null)
+            {
+                votingOption.Value.AddVoter(cid);
+            }
         }
 
         /// <summary>
