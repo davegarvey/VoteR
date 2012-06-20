@@ -122,6 +122,20 @@ fieldset.admin-status button {
   background-image:-moz-linear-gradient(#00DD42 0%, #00DD42 80%, #B8FCCC  100%);
   background-image:linear-gradient(#00DD42 0%, #00DD42 80%, #B8FCCC  100%);
 }
+#results .result3 .bar {
+  background-color:#FF4C00;
+  border:1px solid #003BFF;
+  background-image:-webkit-linear-gradient(#003BFF 0%, #003BFF 80%, #7797FF  100%);
+  background-image:-moz-linear-gradient(#003BFF 0%, #003BFF 80%, #7797FF  100%);
+  background-image:linear-gradient(#003BFF 0%, #003BFF 80%, #7797FF  100%);
+}
+#results .result4 .bar {
+  background-color:#FF4C00;
+  border:1px solid #FFFA00;
+  background-image:-webkit-linear-gradient(#FFFA00 0%, #FFFA00 80%, #FFFC77  100%);
+  background-image:-moz-linear-gradient(#FFFA00 0%, #FFFA00 80%, #FFFC77  100%);
+  background-image:linear-gradient(#FFFA00 0%, #FFFA00 80%, #FFFC77  100%);
+}
 fieldset {
   border:none;
   max-width:300px;
@@ -154,7 +168,7 @@ fieldset .first {
     list-style:none;
 }
 #votingButtons .button {
-  margin:0 auto;
+  margin:0 auto 20px;
   width:100%;
 }
 .button span {

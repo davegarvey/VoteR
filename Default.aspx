@@ -56,7 +56,7 @@
             </div>
         </div>
     
-        <h2>Cast your vote</h2>
+        <h2 id="castVote">Cast your vote</h2>
         <fieldset id="votingOptions">
             <div id="votingButtons">
                 <!--

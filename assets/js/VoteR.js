@@ -11,7 +11,9 @@ $(function () {
         $votingOptions = $("#votingOptions"),
         $pollChart = $("#pollChart #container"),
         $newVotingOption = $("#newVotingOption"),
-        $votingButtons = $("#votingButtons");
+        $votingButtons = $("#votingButtons"),
+        $chartTitles,
+        $buttonList;
 
     $.extend(votingHub, {
         titleChanged: function (cid, title) {
@@ -20,6 +22,7 @@ $(function () {
         pollOpened: function () {
             $pollState.text("Open");
             $votingOptions.show();
+            $("h2#castVote").show();
             $("#openPoll").prop("disabled", true);
             $("#closePoll").prop("disabled", false);
             $("#resetPoll").prop("disabled", true);
@@ -27,6 +30,7 @@ $(function () {
         pollClosed: function () {
             $pollState.text("Closed");
             $votingOptions.hide();
+            $("h2#castVote").hide();
             $("#openPoll").prop("disabled", false);
             $("#closePoll").prop("disabled", true);
             $("#resetPoll").prop("disabled", false);
@@ -57,44 +61,46 @@ $(function () {
 
                 // prep titles area
                 $pollChart.empty();
-                $pollChart.append("<ul>");
-                
+                $pollChart.append("<ul id='chart-titles'>");
+                $chartTitles = $("#chart-titles");
+
                 // prep vote buttons area
                 $votingButtons.empty();
-                $votingButtons.append("<ul>");
+                $votingButtons.append("<ul id='button-list'>");
+                $buttonList = $("#button-list");
 
                 $.each(votingOptions, function (idx) {
-                    var btnClass = (idx === 0) ? " class='first'" : "";
-                    $pollChart.append("<li" + btnClass + ">" + this.Name + "</li>");
-                    
-                   //calculate the chart values
-                    //votes.push(this.Votes);
+                    //calculate the chart values
                     total += this.Votes;
                 });
-                
+
                 // get the percentage of 10px in the current width
                 barMarginWidth = 10 / (containerWidth / 100);
                 barWidth = (100 - ((votingOptions.length - 1) * barMarginWidth)) / votingOptions.length;
-                
+
                 // add a chart bar and a voting button for each vote type
                 $.each(votingOptions, function (idx) {
                     var //vote = votes[idx],
                         chartHeight,
                         cssIndex = (idx + 1),
-                        btnClass = (idx === 0) ? " class='first'" : "",
+                        btnClass = ((idx === 0) || ((idx % 2) === 0)) ? " class='first'" : "",
                         leftPos = (barMarginWidth * idx) + (barWidth * idx);
 
-                    if (this.Vote > 0) {
-                        chartHeight = ((this.Vote / total) * 100);
+                    if (this.Votes > 0) {
+                        chartHeight = ((this.Votes / total) * 100);
                     } else {
                         chartHeight = 0;
                     }
-                    
+
+                    // add chart titles                   
+                    $chartTitles.append("<li style='width:" + barWidth + "%; margin-left:" + ((idx > 0) ? barMarginWidth : 0) + "%'>" + this.Name + "</li>");
+
                     // add charts
-                    $pollChart.append("<div class='result'" + cssIndex + " style='width:" + barWidth + "%; left:" + leftPos + "%'><div class='count' style='bottom:" + chartHeight + "%'>" + this.Votes + "</div><div class='bar' style='height:" + chartHeight + "%'></div></div>");
-                    
-                    $votingButtons.append("<li " + btnClass + "><button class='votingButton button button-" + cssIndex + "'>" + this.Name + "<span></span></button></li>");
-                }); 
+                    $pollChart.append("<div class='result result" + cssIndex + "' style='width:" + barWidth + "%; left:" + leftPos + "%'><div class='count' style='bottom:" + chartHeight + "%'>" + this.Votes + "</div><div class='bar' style='height:" + chartHeight + "%'></div></div>");
+
+                    // add buttons
+                    $buttonList.append("<li " + btnClass + "><button class='votingButton button button-" + cssIndex + "'>" + this.Name + "<span></span></button></li>");
+                });
 
                 $(".votingButton").click(function () {
                     votingHub.placeVote(this.innerText);
